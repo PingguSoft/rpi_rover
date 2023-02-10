@@ -96,7 +96,9 @@ class LanePredictor(Component):
             angle = self._tf.get_output_tensor(0)
 
             # fps calculation
-            fps = int(1 / (time.time() - start))
+            diff = time.time() - start
+            fps = int(1 / diff) if diff != 0 else 60
+
             if len(self._fps_list) > 100:
                 self._fps_list.pop(0)
             self._fps_list.append(fps)

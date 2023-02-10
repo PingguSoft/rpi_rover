@@ -51,7 +51,7 @@ def main():
 
     _manager.add(VideoWriter('.rec/'))
     _manager.add(CVLaneDetection(rate_hz=_rate, is_show=True), run_condition='stat/pilot_m1')
-    _manager.add(LanePredictor(rate_hz=_rate, model_path='./.train_outputs/rover_pi2_final.tflite'), run_condition='stat/pilot_m2')
+    _manager.add(LanePredictor(rate_hz=_rate, model_path='./.train_outputs/rover_pi2_final_q8.tflite'), run_condition='stat/pilot_m2')
     _manager.add(RoadSignDetector(rate_hz=_rate, model_path='./.train_outputs/road_signs_q8.tflite'), run_condition='stat/pilot_m2')
     # _manager.add(StreamServer(rate_hz=_rate))
     _manager.add(Mapper(angle_limit=35, throttle_limit=100))
