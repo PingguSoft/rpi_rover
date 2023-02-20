@@ -41,6 +41,7 @@ def main():
 
     _manager = Manager(log=_log)
     _manager.add(PiCamera(160, 120, fps=_rate, video=None if _is_rpi else 'drive_test.mp4'))
+    # _manager.add(PiCamera(160, 120, fps=_rate, video='drive_test.mp4'))
     _manager.add(KeyControl())
 
     if _is_rpi:
@@ -51,8 +52,8 @@ def main():
 
     _manager.add(VideoWriter('.rec/'))
     _manager.add(CVLaneDetection(rate_hz=_rate, is_show=True), run_condition='stat/pilot_m1')
-    _manager.add(LanePredictor(rate_hz=_rate, model_path='./.train_outputs/rover_pi2_final_q8.tflite'), run_condition='stat/pilot_m2')
-    _manager.add(RoadSignDetector(rate_hz=_rate, model_path='./.train_outputs/road_signs_q8.tflite'), run_condition='stat/pilot_m2')
+    _manager.add(LanePredictor(rate_hz=_rate, model_path='./tf_models/rover_pi2_drive_qa_edgetpu.tflite'), run_condition='stat/pilot_m2')
+    _manager.add(RoadSignDetector(rate_hz=_rate, model_path='./tf_models/rover_pi2_signs_q8_edgetpu.tflite'), run_condition='stat/pilot_m2')
     # _manager.add(StreamServer(rate_hz=_rate))
     _manager.add(Mapper(angle_limit=35, throttle_limit=100))
     _manager.add(Display(scale=2, mem=_manager.get_mem(), rate_hz=_rate, key_wait=_debug))

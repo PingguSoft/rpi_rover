@@ -6,7 +6,7 @@ import queue
 import math
 from components.component import Component
 from components.tf.TFLiteUtils import TFLiteUtils
-import tensorflow as tf
+#import tensorflow as tf
 
 
 ###############################################################################

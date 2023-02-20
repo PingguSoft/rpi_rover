@@ -67,7 +67,7 @@ class RoadSignDetector(Component):
             dict_result = {'boxes': boxes, 'classes': classes, 'scores': scores, 'count': count}
 
             out_img = np.zeros_like(image)
-            cnt = self.draw_objects(out_img, dict_result, self._tf.get_labels(), 0.35, scale)
+            cnt = self.draw_objects(out_img, dict_result, self._tf.get_labels(), 0.4, scale)
             if cnt == 0:
                 out_img = None
 

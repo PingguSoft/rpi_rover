@@ -92,6 +92,7 @@ class PiCamera(Component):
             if self._img_out is not None:
                 if self._img_out.shape[0] != self._height or self._img_out.shape[1] != self._width:
                     self._img_out = cv2.resize(self._img_out, (self._width, self._height))
+        # self._img_out = cv2.flip(self._img_out, 1)
         return self._img_out
 
     #

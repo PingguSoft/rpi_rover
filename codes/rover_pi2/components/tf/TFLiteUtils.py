@@ -1,3 +1,4 @@
+import os
 import io
 import cv2
 import time
@@ -5,7 +6,8 @@ import inspect
 import numpy as np
 import math
 import zipfile
-import tensorflow as tf
+#import tensorflow as tf
+#from pycoral.utils.edgetpu import make_interpreter
 
 class TFLiteUtils:
     #
@@ -17,7 +19,20 @@ class TFLiteUtils:
     def __init__(self, model_path):
         self._model_path  = model_path
         self._labels = self.read_labels(model_path)
-        self._interpreter = tf.lite.Interpreter(model_path)
+        
+
+        split_ext = os.path.splitext(model_path)
+        if split_ext[0].endswith('_edgetpu'):
+            # from pycoral.pybind._pywrap_coral import SetVerbosity as set_verbosity
+            # set_verbosity(10)
+            from pycoral.utils.edgetpu import make_interpreter
+            self._interpreter = make_interpreter(model_path)
+        else:
+            import tensorflow as tf
+            self._interpreter = tf.lite.Interpreter(model_path)
+            # self._interpreter = make_interpreter(model_path)
+
+        # self._interpreter = tf.lite.Interpreter(model_path)
         self._interpreter.allocate_tensors()
         self._input_details  = self._interpreter.get_input_details()
         self._output_details = self._interpreter.get_output_details()
